@@ -61,7 +61,8 @@ public class PayaraVersionsIT {
     @BeforeAll
     static void launchBrowser() {
         playwright = Playwright.create();
-        browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
+        browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true)
+                .setArgs(java.util.Arrays.asList("--no-sandbox", "--disable-setuid-sandbox")));
     }
 
     @BeforeEach
