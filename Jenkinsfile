@@ -83,7 +83,7 @@ pipeline {
                     }
                     steps {
                             sh '''echo *#*#*#*#*#*#*#*#*#*#*#*#  Testing Starter Archetypes  *#*#*#*#*#*#*#*#*#*#*#*#*#*#*'''
-                            sh '''cd starter-archetype && mvn clean verify -pl . -De2e'''
+                            sh '''cd starter-archetype && mvn clean verify -pl . -De2e -Pinstall-deps'''
                         
                     }
                 }
