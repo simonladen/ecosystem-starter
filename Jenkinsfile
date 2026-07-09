@@ -37,15 +37,14 @@ pipeline {
                         payaraBuildNumber = "${BUILD_NUMBER}"
                     }
                     steps {
-                        withCredentials([string(credentialsId: 'open-ai-payara-starter-token', variable: 'PAYARA_TOKEN')]) {
                         script {
                             sh '''echo *#*#*#*#*#*#*#*#*#*#*#*#  Add OPEN_API_KEY to microprofile-config.properties  *#*#*#*#*#*#*#*#*#*#*#*#*#*#*'''
-                            sh '''echo "\n OPEN_API_KEY=$PAYARA_TOKEN" >> starter-ui/src/main/resources/META-INF/microprofile-config.properties'''
+                            sh '''echo "\n OPEN_API_KEY=XXX" >> starter-ui/src/main/resources/META-INF/microprofile-config.properties'''
                             sh '''echo *#*#*#*#*#*#*#*#*#*#*#*#  Deploying Payara Starter  *#*#*#*#*#*#*#*#*#*#*#*#*#*#*'''
                             sh '''mvn clean install payara-micro:start -f ./starter-ui/ \
                                 -DcontextRoot="payara-starter" -DdeployWar=true > payara.log 2>&1 &
                             echo $! > $WORKSPACE/payara.pid'''
-                            }
+
                         }
                     }
                 }
@@ -83,7 +82,7 @@ pipeline {
                     }
                     steps {
                             sh '''echo *#*#*#*#*#*#*#*#*#*#*#*#  Testing Starter Archetypes  *#*#*#*#*#*#*#*#*#*#*#*#*#*#*'''
-                            sh '''cd starter-archetype && mvn clean verify -pl . -De2e -Pinstall-deps'''
+                            sh '''cd starter-archetype && mvn clean verify -pl . -De2e'''
                         
                     }
                 }
